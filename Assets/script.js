@@ -37,28 +37,35 @@ function getWeatherApi(cityName) {
         latitude +
         "&lon=" +
         longitude +
-        "&appid=c5ad45b95de3366ffdd43c823c1307a9";
+        "&appid=c5ad45b95de3366ffdd43c823c1307a9&units=imperial";
       fetch(latLongCity)
         .then(function (response) {
           return response.json();
         })
-        .then(function (data) {});
+        .then(function (data) {
+          console.log(data);
+          displaySingleDay(data);
+        });
     });
 }
 
-var displaySingleDay = function (singleDay) {
-  getWeatherApi();
+var displaySingleDay = function (data) {
   var singleCityName = document.createElement("h3");
-  var singleCityIcon = document.createElement("i");
+  var singleCityIcon = document.createElement("img");
   var singleCityTemp = document.createElement("h3");
   var singleCityWind = document.createElement("h3");
   var singleCityHumd = document.createElement("h3");
 
-  singleCityName.textContent = data[0].city.name;
-  singleCityIcon.textContent = data[1].list[0].weather[0].icon;
-  singleCityTemp.textContent = data[1].list[0].main.temp;
-  singleCityWind.textContent = data[1].list[0].wind.speed;
-  singleCityHumd.textContent = data[1].list[0].main.humidity;
+  var iconCode = data.list[0].weather[0].icon;
+  var iconCodeUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+  singleCityName.textContent = data.city.name;
+  singleCityIcon.setAttribute("src", iconCodeUrl);
+  singleCityTemp.textContent =
+    "Temp:" + " " + data.list[0].main.temp + " " + "F";
+  singleCityWind.textContent =
+    "Wind:" + " " + data.list[0].wind.speed + " " + "MPH";
+  singleCityHumd.textContent =
+    "Humidity:" + " " + data.list[0].main.humidity + " " + "%";
 
   singleCard.append(singleCityName);
   singleCard.append(singleCityIcon);
@@ -80,4 +87,5 @@ searchButton.addEventListener("click", function (event) {
 
   console.log("button pressed");
   getWeatherApi(cityInput);
+  displaySingleDay();
 });
