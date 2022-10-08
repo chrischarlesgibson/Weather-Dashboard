@@ -15,7 +15,7 @@ var APIKey = "c5ad45b95de3366ffdd43c823c1307a9";
 var searchButton = document.getElementById("search-button");
 
 //empty city variable to store the city input into
-var city = "madison";
+var city;
 
 // function convertToCoordinates() {
 //   var coordinates="http://api.openweathermap.org/geo/1.0/direct?q=" {city name},{state code},{country code}"&limit={limit}" "&appid=c5ad45b95de3366ffdd43c823c1307a9"
@@ -23,7 +23,7 @@ var city = "madison";
 function getWeatherApi() {
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=%22" +
-    city +
+    cityName +
     "%22&appid=c5ad45b95de3366ffdd43c823c1307a9";
   fetch(cityCoordinates)
     .then(function (coordinates) {
@@ -45,17 +45,19 @@ function getWeatherApi() {
         .then(function (finalWeather) {
           console.log(finalWeather);
         });
-
-      //   for (var i = 0; i < data.length; i++)
-      //     var username = document.createElement("h3");
-      //   username.textContent = data[i].login;
-      //   usersContainer.append(username);
-
-      //   var userUr1 = document.createElement("p");
-      //   userUr1.textContent = data[i].url;
-      //   usersContainer.append(userUr1);
     });
 }
+
+// var displaySingleDay = function (singleDay) {};
+
+//   for (var i = 0; i < data.length; i++)
+//     var username = document.createElement("h3");
+//   username.textContent = data[i].login;
+//   usersContainer.append(username);
+
+//   var userUr1 = document.createElement("p");
+//   userUr1.textContent = data[i].url;
+//   usersContainer.append(userUr1);
 searchButton.addEventListener("click", getWeatherApi);
 getWeatherApi();
 //
