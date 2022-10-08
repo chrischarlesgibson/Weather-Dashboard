@@ -15,7 +15,7 @@ var APIKey = "c5ad45b95de3366ffdd43c823c1307a9";
 var searchButton = document.getElementById("search-button");
 
 //empty city variable to store the city input into
-cityName = "madison";
+var cityInput = "";
 
 // function convertToCoordinates() {
 //   var coordinates="http://api.openweathermap.org/geo/1.0/direct?q=" {city name},{state code},{country code}"&limit={limit}" "&appid=c5ad45b95de3366ffdd43c823c1307a9"
@@ -23,7 +23,7 @@ cityName = "madison";
 function getWeatherApi(cityName) {
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=%22" +
-    cityName +
+    cityInput +
     "%22&appid=c5ad45b95de3366ffdd43c823c1307a9";
   fetch(cityCoordinates)
     .then(function (res) {
@@ -61,6 +61,8 @@ function getWeatherApi(cityName) {
 //   usersContainer.append(userUr1);
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
+  cityInput = cityName.value.trim();
+
   console.log("button pressed");
-  getWeatherApi(cityName);
+  getWeatherApi(cityInput);
 });
