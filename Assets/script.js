@@ -1,30 +1,20 @@
 ("use strict");
-// look at # 10 stu activity for bolier plate funtion to
-// var usersContainer = document.getElementById("users");
-
-//assigning variables to single day card classes
+//assigning variable to single day forecast card class
 var singleCard = document.querySelector(".card");
+//assigning variable to five day forecast card class
 var fiveCardDeck = document.querySelector(".card-deck");
-// var singleCity = document.querySelector(".day-city-card");
-// var singleIcon = document.querySelector(".day-city-icon");
-// var singleTemp = document.querySelector(".day-city-temp");
-// var singleWind = document.querySelector(".day-city-wind");
-// var singleHumd = document.querySelector(".day-city-humd");
-
+//assigning variable to input search element
 var cityName = document.getElementById("search-input");
-var APIKey = "c5ad45b95de3366ffdd43c823c1307a9";
-
+//assigning variable to search button
 var searchButton = document.getElementById("search-button");
 
 //empty city variable to store the city input into
 var cityInput = "";
 
-// function convertToCoordinates() {
-//   var coordinates="http://api.openweathermap.org/geo/1.0/direct?q=" {city name},{state code},{country code}"&limit={limit}" "&appid=c5ad45b95de3366ffdd43c823c1307a9"
-// }
-
+//using moment js to get the current date and assigning it to variable date
 var date = moment().format("Do-MMM-GGGG");
 
+//function to fetch the open weather api based on what city the user searched for and then converting the data to coordinates becuase open weather only accepts corrdinates and not city names. then We do another fetch using the corrdinates and then we run theat data into the displayForecast function
 function getWeatherApi(cityName) {
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -54,6 +44,7 @@ function getWeatherApi(cityName) {
     });
 }
 
+//displayForecast function to loop through data we get from open weather and i===0 it will dynamically create a forecast card for the current day and if i>(8*3)-1 (8*3 becuase the data from open weather comes in 3 hour blocks so 8*3 is 24hrs)then it will dynamically generate cards for the next five days
 var displayforecast = function (data) {
   for (i = 0; i < 6; i++) {
     if (i === 0) {
@@ -108,14 +99,8 @@ var displayforecast = function (data) {
     }
   }
 };
-//   for (var i = 0; i < data.length; i++)
-//     var username = document.createElement("h3");
-//   username.textContent = data[i].login;
-//   usersContainer.append(username);
 
-//   var userUr1 = document.createElement("p");
-//   userUr1.textContent = data[i].url;
-//   usersContainer.append(userUr1);
+//event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
   cityInput = cityName.value.trim();
