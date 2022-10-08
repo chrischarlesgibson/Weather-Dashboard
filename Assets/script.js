@@ -3,12 +3,12 @@
 // var usersContainer = document.getElementById("users");
 
 //assigning variables to single day card classes
-var singleCard = document.querySelector(".day-card-body");
-var singleCity = document.querySelector(".day-city-card");
-var singleIcon = document.querySelector(".day-city-icon");
-var singleTemp = document.querySelector(".day-city-temp");
-var singleWind = document.querySelector(".day-city-wind");
-var singleHumd = document.querySelector(".day-city-humd");
+var singleCard = document.querySelector(".card");
+// var singleCity = document.querySelector(".day-city-card");
+// var singleIcon = document.querySelector(".day-city-icon");
+// var singleTemp = document.querySelector(".day-city-temp");
+// var singleWind = document.querySelector(".day-city-wind");
+// var singleHumd = document.querySelector(".day-city-humd");
 var cityName = document.getElementById("search-input");
 var APIKey = "c5ad45b95de3366ffdd43c823c1307a9";
 
@@ -26,11 +26,10 @@ function getWeatherApi(cityName) {
     cityInput +
     "%22&appid=c5ad45b95de3366ffdd43c823c1307a9";
   fetch(cityCoordinates)
-    .then(function (res) {
-      return res.json();
+    .then(function (response) {
+      return response.json();
     })
     .then(function (data) {
-      console.log(data);
       var latitude = data[0].lat;
       var longitude = data[0].lon;
       var latLongCity =
@@ -40,17 +39,33 @@ function getWeatherApi(cityName) {
         longitude +
         "&appid=c5ad45b95de3366ffdd43c823c1307a9";
       fetch(latLongCity)
-        .then(function (weather) {
-          return weather.json();
+        .then(function (response) {
+          return response.json();
         })
-        .then(function (finalWeather) {
-          console.log(finalWeather);
-        });
+        .then(function (data) {});
     });
 }
 
-// var displaySingleDay = function (singleDay) {};
+var displaySingleDay = function (singleDay) {
+  getWeatherApi();
+  var singleCityName = document.createElement("h3");
+  var singleCityIcon = document.createElement("i");
+  var singleCityTemp = document.createElement("h3");
+  var singleCityWind = document.createElement("h3");
+  var singleCityHumd = document.createElement("h3");
 
+  singleCityName.textContent = data[0].city.name;
+  singleCityIcon.textContent = data[1].list[0].weather[0].icon;
+  singleCityTemp.textContent = data[1].list[0].main.temp;
+  singleCityWind.textContent = data[1].list[0].wind.speed;
+  singleCityHumd.textContent = data[1].list[0].main.humidity;
+
+  singleCard.append(singleCityName);
+  singleCard.append(singleCityIcon);
+  singleCard.append(singleCityTemp);
+  singleCard.append(singleCityWind);
+  singleCard.append(singleCityHumd);
+};
 //   for (var i = 0; i < data.length; i++)
 //     var username = document.createElement("h3");
 //   username.textContent = data[i].login;
