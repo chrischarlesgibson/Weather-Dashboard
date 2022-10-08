@@ -27,7 +27,6 @@ function getWeatherApi() {
     "%22&appid=c5ad45b95de3366ffdd43c823c1307a9";
   fetch(cityCoordinates)
     .then(function (coordinates) {
-      console.log(coordinates);
       return coordinates.json();
     })
     .then(function (data) {
@@ -39,8 +38,13 @@ function getWeatherApi() {
         "&lon=" +
         longitude +
         "&appid=c5ad45b95de3366ffdd43c823c1307a9";
-      console.log(data);
-      console.log(latLongCity);
+      fetch(latLongCity)
+        .then(function (weather) {
+          return weather.json();
+        })
+        .then(function (finalWeather) {
+          console.log(finalWeather);
+        });
 
       //   for (var i = 0; i < data.length; i++)
       //     var username = document.createElement("h3");
