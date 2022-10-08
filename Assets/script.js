@@ -4,6 +4,7 @@
 
 //assigning variables to single day card classes
 var singleCard = document.querySelector(".card");
+var fiveCardDeck = document.querySelector(".card-deck");
 // var singleCity = document.querySelector(".day-city-card");
 // var singleIcon = document.querySelector(".day-city-icon");
 // var singleTemp = document.querySelector(".day-city-temp");
@@ -81,6 +82,7 @@ var displayforecast = function (data) {
       singleCard.append(singleCityHumd);
     } else {
       x = i * 8 - 1;
+
       var newFiveDayCard = document.createElement("div");
       var fiveCityIcon = document.createElement("img");
       var fiveDayCityTemp = document.createElement("h3");
@@ -100,9 +102,9 @@ var displayforecast = function (data) {
 
       newFiveDayCard.append(fiveCityIcon);
       newFiveDayCard.append(fiveDayCityTemp);
-      newFiveDayCard.append(singleCityTemp);
       newFiveDayCard.append(fiveDayCityWind);
       newFiveDayCard.append(fiveDayCityHumd);
+      fiveCardDeck.append(newFiveDayCard);
     }
   }
 };
