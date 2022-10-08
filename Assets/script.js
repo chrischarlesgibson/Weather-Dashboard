@@ -9,6 +9,7 @@ var singleCard = document.querySelector(".card");
 // var singleTemp = document.querySelector(".day-city-temp");
 // var singleWind = document.querySelector(".day-city-wind");
 // var singleHumd = document.querySelector(".day-city-humd");
+
 var cityName = document.getElementById("search-input");
 var APIKey = "c5ad45b95de3366ffdd43c823c1307a9";
 
@@ -20,6 +21,9 @@ var cityInput = "";
 // function convertToCoordinates() {
 //   var coordinates="http://api.openweathermap.org/geo/1.0/direct?q=" {city name},{state code},{country code}"&limit={limit}" "&appid=c5ad45b95de3366ffdd43c823c1307a9"
 // }
+
+var date = moment().format("Do-MMM-GGGG");
+
 function getWeatherApi(cityName) {
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=%22" +
@@ -58,7 +62,7 @@ var displaySingleDay = function (data) {
 
   var iconCode = data.list[0].weather[0].icon;
   var iconCodeUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-  singleCityName.textContent = data.city.name;
+  singleCityName.textContent = data.city.name + "  " + date;
   singleCityIcon.setAttribute("src", iconCodeUrl);
   singleCityTemp.textContent =
     "Temp:" + " " + data.list[0].main.temp + " " + "F";
