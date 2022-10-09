@@ -102,9 +102,7 @@ var displayforecast = function (data) {
       var iconCodeUrl =
         "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
       fiveCityIcon.setAttribute("src", iconCodeUrl);
-      fiveDayDate.textContent = moment()
-        .add(i + 1, "d")
-        .format("L");
+      fiveDayDate.textContent = moment().add(i, "d").format("L");
       fiveDayCityTemp.textContent =
         "Temp:" + " " + data.list[x].main.temp + " " + "F";
       fiveDayCityWind.textContent =
@@ -137,10 +135,21 @@ function makeCityHistoryBtns() {
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
   cityInput = cityName.value.trim();
-
   console.log("button pressed");
   getWeatherApi(cityInput);
   displayforecast();
 });
 
+searchHistoryBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  searchHistoryBtn.textContent = historyArray[i];
+  console.log("button pressed");
+  getWeatherApi(historyArray[i]);
+  displayforecast();
+});
+
 makeCityHistoryBtns();
+
+// let chars = ["A", "B", "A", "C", "B"];
+// let uniqueChars = [...new Set(chars)];
+// console;
