@@ -18,15 +18,16 @@ var cityInput = "";
 var date = moment().format("L");
 
 //making empty history variable to store search history into
-var historyArray;
 
 // //making varibale for the date of each five day forecast card using moment js
 // var day2 = moment().add(1, "days");
 // console.log(day2);
 
+var historyArray;
+
 //function to fetch the open weather api based on what city the user searched for and then converting the data to coordinates becuase open weather only accepts corrdinates and not city names. then We do another fetch using the corrdinates and then we run theat data into the displayForecast function..|| means if history array is blank dont store into storage
 function getWeatherApi(cityName) {
-  historyArray = JSON.parse(localStorage.getItem("Searched City")) || [];
+  historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
   historyArray.push(cityInput);
   localStorage.setItem("searched city", JSON.stringify(historyArray));
   var cityCoordinates =
@@ -120,18 +121,18 @@ var displayforecast = function (data) {
   }
 };
 
+// function deleteChildhistory
 //function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
-console.log(historyArray);
-function makeCityHistoryBtns(historyArray) {
+
+function makeCityHistoryBtns() {
+  historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
+  console.log(historyArray);
   for (var i = 0; i < historyArray.length; i++) {
-    var searchHistoryBtn = createElement("button");
+    var searchHistoryBtn = document.createElement("button");
     searchHistoryBtn.textContent = historyArray[i];
     historyButtons.append(searchHistoryBtn);
   }
 }
-
-// function deleteChildhistory
-
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
@@ -140,5 +141,6 @@ searchButton.addEventListener("click", function (event) {
   console.log("button pressed");
   getWeatherApi(cityInput);
   displayforecast();
-  makeCityHistoryBtns(historyArray);
 });
+
+makeCityHistoryBtns();
