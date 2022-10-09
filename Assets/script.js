@@ -29,7 +29,36 @@ var historyArray;
 function getWeatherApi(cityName) {
   historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
   historyArray.push(cityInput);
-  localStorage.setItem("searched city", JSON.stringify(historyArray));
+  historyArrayNoDuplicates = [];
+  historyArray.forEach(function (element) {
+    if (!historyArrayNoDuplicates.includes(element)) {
+      historyArrayNoDuplicates.push(element);
+      console.log(historyArrayNoDuplicates);
+    } else {
+      console.log(element);
+    }
+  });
+
+  localStorage.setItem(
+    "searched city",
+    JSON.stringify(historyArrayNoDuplicates)
+  );
+
+  if (historyButtons.innerHTML) {
+    historyButtons.innerHTML = "";
+  }
+
+  for (var i = 0; i < historyArrayNoDuplicates.length; i++) {
+    var searchHistoryBtn = document.createElement("button");
+    searchHistoryBtn.setAttribute("type", "button");
+    searchHistoryBtn.setAttribute("aria-controls", "today forecast");
+    searchHistoryBtn.classList.add("history-btn", "btn-history");
+    searchHistoryBtn.setAttribute("data-search", historyArrayNoDuplicates[i]);
+    searchHistoryBtn.textContent = historyArrayNoDuplicates[i];
+    historyButtons.append(searchHistoryBtn);
+    searchHistoryBtn.addEventListener("click", searchHistoryClick);
+  }
+
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cityName +
@@ -124,40 +153,16 @@ var displayforecast = function (data) {
 // function deleteChildhistory
 //function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
 
-var historyArray = [];
-var historyArrayNoDuplicates = [];
-historyArray.forEach((element) => {
-  if (!historyArrayNoDuplicates.includes(element)) {
-    historyArrayNoDuplicates.push(element);
-    console.log(historyArrayNoDuplicates);
-  }
-});
+// var historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
 
-console.log(historyArrayNoDuplicates);
-function makeCityHistoryBtns() {
-  historyArrayNoDuplicates =
-    JSON.parse(localStorage.getItem("searched city")) || [];
-  console.log(historyArrayNoDuplicates);
-  for (var i = 0; i < historyArrayNoDuplicates.length; i++) {
-    var searchHistoryBtn = document.createElement("button");
-    searchHistoryBtn.setAttribute("type", "button");
-    searchHistoryBtn.setAttribute("aria-controls", "today forecast");
-    searchHistoryBtn.classList.add("history-btn", "btn-history");
-
-    searchHistoryBtn.setAttribute("data-search", historyArrayNoDuplicates[i]);
-    searchHistoryBtn.textContent = historyArrayNoDuplicates[i];
-    historyButtons.append(searchHistoryBtn);
-    searchHistoryBtn.addEventListener("click", searchHistoryClick);
-  }
-}
+function makeCityHistoryBtns() {}
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
   cityInput = cityName.value.trim();
-  if (cityInput && !historyArrayNoDuplicates.includes(cityInput)) {
-    getWeatherApi(cityInput);
-    makeCityHistoryBtns();
-  }
+  console.log("button pressed");
+  getWeatherApi(cityInput);
+  makeCityHistoryBtns();
 });
 
 function searchHistoryClick(e) {
@@ -166,9 +171,9 @@ function searchHistoryClick(e) {
   }
   var btn = e.target;
   var search = btn.getAttribute("data-search");
-  if (!historyArrayNoDuplicates.includes(search)) {
-    getWeatherApi(search);
-  }
+  console.log(search);
+  getWeatherApi(search);
+  console.log("button pressed");
 }
 // var historyArrayNoDuplicates = [...new Set(historyArray)];
 // searchHistoryBtn.addEventListener("click", "data-search", function (event) {
