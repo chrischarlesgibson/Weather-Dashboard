@@ -124,17 +124,27 @@ var displayforecast = function (data) {
 // function deleteChildhistory
 //function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
 
+var historyArray = [];
+var historyArrayNoDuplicates = [];
+historyArray.forEach((element) => {
+  if (!historyArrayNoDuplicates.includes(element)) {
+    historyArrayNoDuplicates.push(element);
+  }
+});
+
+console.log(historyArrayNoDuplicates);
 function makeCityHistoryBtns() {
-  historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
-  console.log(historyArray);
-  for (var i = 0; i < historyArray.length; i++) {
+  historyArrayNoDuplicates =
+    JSON.parse(localStorage.getItem("searched city")) || [];
+  console.log(historyArrayNoDuplicates);
+  for (var i = 0; i < historyArrayNoDuplicates.length; i++) {
     var searchHistoryBtn = document.createElement("button");
     searchHistoryBtn.setAttribute("type", "button");
     searchHistoryBtn.setAttribute("aria-controls", "today forecast");
     searchHistoryBtn.classList.add("history-btn", "btn-history");
 
-    searchHistoryBtn.setAttribute("data-search", historyArray[i]);
-    searchHistoryBtn.textContent = historyArray[i];
+    searchHistoryBtn.setAttribute("data-search", historyArrayNoDuplicates[i]);
+    searchHistoryBtn.textContent = historyArrayNoDuplicates[i];
     historyButtons.append(searchHistoryBtn);
     searchHistoryBtn.addEventListener("click", searchHistoryClick);
   }
@@ -145,6 +155,7 @@ searchButton.addEventListener("click", function (event) {
   cityInput = cityName.value.trim();
   console.log("button pressed");
   getWeatherApi(cityInput);
+  makeCityHistoryBtns();
 });
 
 function searchHistoryClick(e) {
@@ -157,7 +168,7 @@ function searchHistoryClick(e) {
   getWeatherApi(search);
   console.log("button pressed");
 }
-
+// var historyArrayNoDuplicates = [...new Set(historyArray)];
 // searchHistoryBtn.addEventListener("click", "data-search", function (event) {
 //   event.preventDefault();
 //   searchHistoryBtn.textContent = historyArray[i];
@@ -165,11 +176,5 @@ function searchHistoryClick(e) {
 //   getWeatherApi(historyArray[i]);
 //   displayforecast();
 // });
-
-makeCityHistoryBtns();
-
-// let chars = ["A", "B", "A", "C", "B"];
-// let uniqueChars = [...new Set(chars)];
-// console;
 
 // historyButtons.addEventListener("click", searchHistoryClick);
