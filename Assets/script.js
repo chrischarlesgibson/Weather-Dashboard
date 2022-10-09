@@ -101,7 +101,9 @@ var displayforecast = function (data) {
       var iconCodeUrl =
         "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
       fiveCityIcon.setAttribute("src", iconCodeUrl);
-      fiveDayDate.textContent = moment().add(1, "day").format("L");
+      fiveDayDate.textContent = moment()
+        .add(i + 1, "d")
+        .format("L");
       fiveDayCityTemp.textContent =
         "Temp:" + " " + data.list[x].main.temp + " " + "F";
       fiveDayCityWind.textContent =
@@ -119,7 +121,7 @@ var displayforecast = function (data) {
 };
 
 //function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
-
+console.log(historyArray);
 function makeCityHistoryBtns(historyArray) {
   for (var i = 0; i < historyArray.length; i++) {
     var searchHistoryBtn = createElement("button");
@@ -128,7 +130,7 @@ function makeCityHistoryBtns(historyArray) {
   }
 }
 
-function deleteChildhistory
+// function deleteChildhistory
 
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
 searchButton.addEventListener("click", function (event) {
@@ -138,5 +140,5 @@ searchButton.addEventListener("click", function (event) {
   console.log("button pressed");
   getWeatherApi(cityInput);
   displayforecast();
-  makeCityHistoryBtns()
+  makeCityHistoryBtns(historyArray);
 });
