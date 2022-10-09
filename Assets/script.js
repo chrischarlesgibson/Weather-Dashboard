@@ -129,6 +129,7 @@ var historyArrayNoDuplicates = [];
 historyArray.forEach((element) => {
   if (!historyArrayNoDuplicates.includes(element)) {
     historyArrayNoDuplicates.push(element);
+    console.log(historyArrayNoDuplicates);
   }
 });
 
@@ -153,9 +154,10 @@ function makeCityHistoryBtns() {
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
   cityInput = cityName.value.trim();
-  console.log("button pressed");
-  getWeatherApi(cityInput);
-  makeCityHistoryBtns();
+  if (cityInput && !historyArrayNoDuplicates.includes(cityInput)) {
+    getWeatherApi(cityInput);
+    makeCityHistoryBtns();
+  }
 });
 
 function searchHistoryClick(e) {
@@ -164,9 +166,9 @@ function searchHistoryClick(e) {
   }
   var btn = e.target;
   var search = btn.getAttribute("data-search");
-  console.log(search);
-  getWeatherApi(search);
-  console.log("button pressed");
+  if (!historyArrayNoDuplicates.includes(search)) {
+    getWeatherApi(search);
+  }
 }
 // var historyArrayNoDuplicates = [...new Set(historyArray)];
 // searchHistoryBtn.addEventListener("click", "data-search", function (event) {
