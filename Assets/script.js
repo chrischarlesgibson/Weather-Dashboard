@@ -32,7 +32,7 @@ function getWeatherApi(cityName) {
   localStorage.setItem("searched city", JSON.stringify(historyArray));
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
-    cityInput +
+    cityName +
     "&appid=c5ad45b95de3366ffdd43c823c1307a9";
   fetch(cityCoordinates)
     .then(function (response) {
@@ -134,6 +134,7 @@ function makeCityHistoryBtns() {
     searchHistoryBtn.setAttribute("data-search", historyArray[i]);
     searchHistoryBtn.textContent = historyArray[i];
     historyButtons.append(searchHistoryBtn);
+    searchHistoryBtn.addEventListener("click", searchHistoryClick);
   }
 }
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
@@ -152,7 +153,7 @@ function searchHistoryClick(e) {
   var btn = e.target;
   var search = btn.getAttribute("data-search");
   console.log(search);
-  getWeatherApi();
+  getWeatherApi(search);
   console.log("button pressed");
   displayforecast();
 }
@@ -171,4 +172,4 @@ makeCityHistoryBtns();
 // let uniqueChars = [...new Set(chars)];
 // console;
 
-historyButtons.addEventListener("click", searchHistoryClick);
+// historyButtons.addEventListener("click", searchHistoryClick);
