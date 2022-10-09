@@ -9,7 +9,7 @@ var cityName = document.getElementById("search-input");
 var searchButton = document.getElementById("search-button");
 
 //variable to select the history button class
-var historyButtons=document.querySelector(".btn-group-vertical")
+var historyButtons = document.querySelector(".btn-group-vertical");
 
 //empty city variable to store the city input into
 var cityInput = "";
@@ -28,7 +28,7 @@ var historyArray;
 function getWeatherApi(cityName) {
   historyArray = JSON.parse(localStorage.getItem("Searched City")) || [];
   historyArray.push(cityInput);
-  localStorage.setItem("searched city", JSON.stringify(historyArray))
+  localStorage.setItem("searched city", JSON.stringify(historyArray));
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cityInput +
@@ -118,13 +118,14 @@ var displayforecast = function (data) {
   }
 };
 
-
-//function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again. 
+//function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
 
 function makeCityHistoryBtns(historyArray) {
   for (var i = 0; i < historyArray.length; i++) {
-    var searchHistoryBtn= createElement("button")
-    searchHistoryBtn.
+    var searchHistoryBtn = createElement("button");
+    searchHistoryBtn.textContent = historyArray[i];
+    historyButtons.append(searchHistoryBtn);
+  }
 }
 
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
