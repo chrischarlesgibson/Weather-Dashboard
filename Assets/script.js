@@ -143,7 +143,6 @@ searchButton.addEventListener("click", function (event) {
   cityInput = cityName.value.trim();
   console.log("button pressed");
   getWeatherApi(cityInput);
-  displayforecast();
 });
 
 function searchHistoryClick(e) {
@@ -155,7 +154,6 @@ function searchHistoryClick(e) {
   console.log(search);
   getWeatherApi(search);
   console.log("button pressed");
-  displayforecast();
 }
 
 // searchHistoryBtn.addEventListener("click", "data-search", function (event) {
