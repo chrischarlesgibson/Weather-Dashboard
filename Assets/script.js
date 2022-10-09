@@ -60,6 +60,8 @@ function getWeatherApi(cityName) {
 
 //displayForecast function to loop through data we get from open weather and i===0 it will dynamically create a forecast card for the current day and if i>(8*3)-1 (8*3 becuase the data from open weather comes in 3 hour blocks so 8*3 is 24hrs)then it will dynamically generate cards for the next five days
 var displayforecast = function (data) {
+  singleCard.innerHTML = "";
+  fiveCardDeck.innerHTML = "";
   for (i = 0; i < 6; i++) {
     if (i === 0) {
       var singleDayDate = document.createElement("h5");
