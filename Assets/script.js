@@ -127,6 +127,11 @@ function makeCityHistoryBtns() {
   console.log(historyArray);
   for (var i = 0; i < historyArray.length; i++) {
     var searchHistoryBtn = document.createElement("button");
+    searchHistoryBtn.setAttribute("type", "button");
+    searchHistoryBtn.setAttribute("aria-controls", "today forecast");
+    searchButton.classList.add("history-btn", "btn-history");
+
+    searchHistoryBtn.setAttribute("data-search", historyArray[i]);
     searchHistoryBtn.textContent = historyArray[i];
     historyButtons.append(searchHistoryBtn);
   }
@@ -140,16 +145,27 @@ searchButton.addEventListener("click", function (event) {
   displayforecast();
 });
 
-searchHistoryBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-  searchHistoryBtn.textContent = historyArray[i];
-  console.log("button pressed");
-  getWeatherApi(historyArray[i]);
-  displayforecast();
-});
+function searchHistoryClick(e) {
+  if (!e.target.matches(".btn-history")) {
+    return;
+  }
+  var btn = e.target;
+  var search = btn.getAttribute("data-search");
+  console.log(search);
+}
+
+// searchHistoryBtn.addEventListener("click", "data-search", function (event) {
+//   event.preventDefault();
+//   searchHistoryBtn.textContent = historyArray[i];
+//   console.log("button pressed");
+//   getWeatherApi(historyArray[i]);
+//   displayforecast();
+// });
 
 makeCityHistoryBtns();
 
 // let chars = ["A", "B", "A", "C", "B"];
 // let uniqueChars = [...new Set(chars)];
 // console;
+
+historyButtons.addEventListener("click", searchHistoryClick);
