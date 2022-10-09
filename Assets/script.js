@@ -129,7 +129,7 @@ function makeCityHistoryBtns() {
     var searchHistoryBtn = document.createElement("button");
     searchHistoryBtn.setAttribute("type", "button");
     searchHistoryBtn.setAttribute("aria-controls", "today forecast");
-    searchButton.classList.add("history-btn", "btn-history");
+    searchHistoryBtn.classList.add("history-btn", "btn-history");
 
     searchHistoryBtn.setAttribute("data-search", historyArray[i]);
     searchHistoryBtn.textContent = historyArray[i];
@@ -152,6 +152,9 @@ function searchHistoryClick(e) {
   var btn = e.target;
   var search = btn.getAttribute("data-search");
   console.log(search);
+  getWeatherApi();
+  console.log("button pressed");
+  displayforecast();
 }
 
 // searchHistoryBtn.addEventListener("click", "data-search", function (event) {
