@@ -8,14 +8,27 @@ var cityName = document.getElementById("search-input");
 //assigning variable to search button
 var searchButton = document.getElementById("search-button");
 
+//variable to select the history button class
+var historyButtons=document.querySelector(".btn-group-vertical")
+
 //empty city variable to store the city input into
 var cityInput = "";
 
 //using moment js to get the current date and assigning it to variable date
-var date = moment().format("Do-MMM-GGGG");
+var date = moment().format("L");
 
-//function to fetch the open weather api based on what city the user searched for and then converting the data to coordinates becuase open weather only accepts corrdinates and not city names. then We do another fetch using the corrdinates and then we run theat data into the displayForecast function
+//making empty history variable to store search history into
+var historyArray;
+
+// //making varibale for the date of each five day forecast card using moment js
+// var day2 = moment().add(1, "days");
+// console.log(day2);
+
+//function to fetch the open weather api based on what city the user searched for and then converting the data to coordinates becuase open weather only accepts corrdinates and not city names. then We do another fetch using the corrdinates and then we run theat data into the displayForecast function..|| means if history array is blank dont store into storage
 function getWeatherApi(cityName) {
+  historyArray = JSON.parse(localStorage.getItem("Searched City")) || [];
+  historyArray.push(cityInput);
+  localStorage.setItem("searched city", JSON.stringify(historyArray))
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cityInput +
@@ -48,6 +61,7 @@ function getWeatherApi(cityName) {
 var displayforecast = function (data) {
   for (i = 0; i < 6; i++) {
     if (i === 0) {
+      var singleDayDate = document.createElement("h5");
       var singleCityName = document.createElement("h3");
       var singleCityIcon = document.createElement("img");
       var singleCityTemp = document.createElement("h3");
@@ -57,7 +71,8 @@ var displayforecast = function (data) {
       var iconCode = data.list[i].weather[0].icon;
       var iconCodeUrl =
         "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-      singleCityName.textContent = data.city.name + "  " + date;
+      singleDayDate.textContent = date;
+      singleCityName.textContent = data.city.name;
       singleCityIcon.setAttribute("src", iconCodeUrl);
       singleCityTemp.textContent =
         "Temp:" + " " + data.list[i].main.temp + " " + "F";
@@ -67,6 +82,7 @@ var displayforecast = function (data) {
         "Humidity:" + " " + data.list[i].main.humidity + " " + "%";
 
       singleCard.append(singleCityName);
+      singleCard.append(singleDayDate);
       singleCard.append(singleCityIcon);
       singleCard.append(singleCityTemp);
       singleCard.append(singleCityWind);
@@ -74,6 +90,7 @@ var displayforecast = function (data) {
     } else {
       x = i * 8 - 1;
 
+      var fiveDayDate = document.createElement("h6");
       var newFiveDayCard = document.createElement("div");
       var fiveCityIcon = document.createElement("img");
       var fiveDayCityTemp = document.createElement("h3");
@@ -84,13 +101,14 @@ var displayforecast = function (data) {
       var iconCodeUrl =
         "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
       fiveCityIcon.setAttribute("src", iconCodeUrl);
+      fiveDayDate.textContent = moment().add(x, "day").format("L");
       fiveDayCityTemp.textContent =
         "Temp:" + " " + data.list[x].main.temp + " " + "F";
       fiveDayCityWind.textContent =
         "Wind:" + " " + data.list[x].wind.speed + " " + "MPH";
       fiveDayCityHumd.textContent =
         "Humidity:" + " " + data.list[x].main.humidity + " " + "%";
-
+      newFiveDayCard.append(fiveDayDate);
       newFiveDayCard.append(fiveCityIcon);
       newFiveDayCard.append(fiveDayCityTemp);
       newFiveDayCard.append(fiveDayCityWind);
@@ -99,6 +117,15 @@ var displayforecast = function (data) {
     }
   }
 };
+
+
+//function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again. 
+
+function makeCityHistoryBtns(historyArray) {
+  for (var i = 0; i < historyArray.length; i++) {
+    var searchHistoryBtn= createElement("button")
+    searchHistoryBtn.
+}
 
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
 searchButton.addEventListener("click", function (event) {
