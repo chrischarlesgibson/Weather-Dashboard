@@ -30,8 +30,6 @@ function getWeatherApi(cityName) {
     if (!historyArrayNoDuplicates.includes(element)) {
       historyArrayNoDuplicates.push(element);
       console.log(historyArrayNoDuplicates);
-    } else {
-      console.log(element);
     }
   });
   localStorage.setItem(
@@ -60,7 +58,15 @@ function getWeatherApi(cityName) {
           return response.json();
         })
         .then(function (data) {
-          console.log(data);
+          // if (window.cityName !== data[0].city.name.replaceAll("", "")) {
+          //   return;
+          // }
+          // console.log(data);
+
+          // if (cityName == data[0].city.name.replaceAll("", ""))
+          // displayforecast(data);
+          // }) else {
+          //   alert("not a city")
           displayforecast(data);
         });
     });
