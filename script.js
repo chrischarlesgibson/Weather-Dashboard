@@ -122,7 +122,7 @@ var displayforecast = function (data) {
 
       var iconCode = data.list[x].weather[0].icon;
       var iconCodeUrl =
-        "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+        "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
       fiveCityIcon.setAttribute("src", iconCodeUrl);
       fiveDayDate.textContent = moment().add(i, "d").format("L");
       fiveDayCityTemp.textContent =
