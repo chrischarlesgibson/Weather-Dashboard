@@ -87,7 +87,7 @@ var displayforecast = function (data) {
 
       var iconCode = data.list[i].weather[0].icon;
       var iconCodeUrl =
-        "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+        "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
       singleDayDate.textContent = date;
       singleCityName.textContent = data.city.name;
       singleCityIcon.setAttribute("src", iconCodeUrl);
