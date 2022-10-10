@@ -112,7 +112,13 @@ var displayforecast = function (data) {
         "Wind:" + " " + data.list[i].wind.speed + " " + "MPH";
       singleCityHumd.textContent =
         "Humidity:" + " " + data.list[i].main.humidity + " " + "%";
-
+      singleCard.classList.add(
+        "border",
+        "bg-info",
+        "text-white",
+        "rounded",
+        "p-3"
+      );
       singleCard.append(singleCityName);
       singleCard.append(singleDayDate);
       singleCard.append(singleCityIcon);
@@ -122,7 +128,7 @@ var displayforecast = function (data) {
     } else {
       x = i * 8 - 1;
 
-      var fiveDayDate = document.createElement("h6");
+      var fiveDayDate = document.createElement("h5");
       var newFiveDayCard = document.createElement("div");
       var fiveCityIcon = document.createElement("img");
       var fiveDayCityTemp = document.createElement("h3");
@@ -140,6 +146,13 @@ var displayforecast = function (data) {
         "Wind:" + " " + data.list[x].wind.speed + " " + "MPH";
       fiveDayCityHumd.textContent =
         "Humidity:" + " " + data.list[x].main.humidity + " " + "%";
+      newFiveDayCard.classList.add(
+        "border",
+        "bg-info",
+        "text-white",
+        "rounded",
+        "p-3"
+      );
       newFiveDayCard.append(fiveDayDate);
       newFiveDayCard.append(fiveCityIcon);
       newFiveDayCard.append(fiveDayCityTemp);
