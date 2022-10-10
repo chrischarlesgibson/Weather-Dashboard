@@ -76,6 +76,9 @@ function getWeatherApi(cityName) {
 var displayforecast = function (data) {
   singleCard.innerHTML = "";
   fiveCardDeck.innerHTML = "";
+  var row = document.createElement("h1");
+  row.textContent = "Five Day Forecast:";
+
   for (i = 0; i < 6; i++) {
     if (i === 0) {
       var singleDayDate = document.createElement("h5");
@@ -91,6 +94,7 @@ var displayforecast = function (data) {
       singleDayDate.textContent = date;
       singleCityName.textContent = data.city.name;
       singleCityIcon.setAttribute("src", iconCodeUrl);
+      singleCityIcon.setAttribute("style", "width: 5%; height 5%");
       singleCityTemp.textContent =
         "Temp:" + " " + data.list[i].main.temp + " " + "F";
       singleCityWind.textContent =
@@ -143,9 +147,13 @@ var displayforecast = function (data) {
       newFiveDayCard.append(fiveDayCityTemp);
       newFiveDayCard.append(fiveDayCityWind);
       newFiveDayCard.append(fiveDayCityHumd);
-      fiveCardDeck.append(newFiveDayCard);
+      fiveCardDeck.append(row);
+      row.append(newFiveDayCard);
     }
   }
+  // var fiveDayForecastTitle = document.createElement("h1");
+  // fiveDayForecastTitle.textContent = "Five Day Forecast:";
+  // singleCard.append(fiveDayForecastTitle);
 };
 
 //function to make buttons for cities you previously searched for
