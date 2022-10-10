@@ -9,3 +9,6 @@ body {
 .card-deck {
   margin-left: 2%;
 }
+.btn-group-vertical {
+  align-items: flex-end;
+}

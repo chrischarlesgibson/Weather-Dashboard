@@ -77,6 +77,7 @@ var displayforecast = function (data) {
   singleCard.innerHTML = "";
   fiveCardDeck.innerHTML = "";
   var row = document.createElement("h1");
+  row.setAttribute("style", "display: flex");
   row.textContent = "Five Day Forecast:";
 
   for (i = 0; i < 6; i++) {
