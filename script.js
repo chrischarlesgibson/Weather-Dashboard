@@ -94,7 +94,7 @@ var displayforecast = function (data) {
       singleDayDate.textContent = date;
       singleCityName.textContent = data.city.name;
       singleCityIcon.setAttribute("src", iconCodeUrl);
-      singleCityIcon.setAttribute("style", "width: 5%; height 5%");
+      singleCityIcon.setAttribute("style", "width: 9%; height 9%");
       singleCityTemp.textContent =
         "Temp:" + " " + data.list[i].main.temp + " " + "F";
       singleCityWind.textContent =
@@ -117,7 +117,7 @@ var displayforecast = function (data) {
     } else {
       x = i * 8 - 1;
 
-      var fiveDayDate = document.createElement("h5");
+      var fiveDayDate = document.createElement("h4");
       var newFiveDayCard = document.createElement("div");
       var fiveCityIcon = document.createElement("img");
       var fiveDayCityTemp = document.createElement("h3");
@@ -128,6 +128,8 @@ var displayforecast = function (data) {
       var iconCodeUrl =
         "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
       fiveCityIcon.setAttribute("src", iconCodeUrl);
+      fiveCardDeck.setAttribute("style", "width: 75%");
+      newFiveDayCard.setAttribute("class", "text-center");
       fiveDayDate.textContent = moment().add(i, "d").format("L");
       fiveDayCityTemp.textContent =
         "Temp:" + " " + data.list[x].main.temp + " " + "F";
