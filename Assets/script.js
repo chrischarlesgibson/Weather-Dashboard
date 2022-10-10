@@ -18,13 +18,9 @@ var cityInput = "";
 var date = moment().format("L");
 
 //making empty history variable to store search history into
-
-// //making varibale for the date of each five day forecast card using moment js
-// var day2 = moment().add(1, "days");
-// console.log(day2);
-
 var historyArray;
-
+//making variable to select the clear button element
+var clearButton = document.querySelector(".clearButtons");
 //function to fetch the open weather api based on what city the user searched for and then converting the data to coordinates becuase open weather only accepts corrdinates and not city names. then We do another fetch using the corrdinates and then we run theat data into the displayForecast function..|| means if history array is blank dont store into storage
 function getWeatherApi(cityName) {
   historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
@@ -38,27 +34,10 @@ function getWeatherApi(cityName) {
       console.log(element);
     }
   });
-
   localStorage.setItem(
     "searched city",
     JSON.stringify(historyArrayNoDuplicates)
   );
-
-  if (historyButtons.innerHTML) {
-    historyButtons.innerHTML = "";
-  }
-
-  for (var i = 0; i < historyArrayNoDuplicates.length; i++) {
-    var searchHistoryBtn = document.createElement("button");
-    searchHistoryBtn.setAttribute("type", "button");
-    searchHistoryBtn.setAttribute("aria-controls", "today forecast");
-    searchHistoryBtn.classList.add("history-btn", "btn-history");
-    searchHistoryBtn.setAttribute("data-search", historyArrayNoDuplicates[i]);
-    searchHistoryBtn.textContent = historyArrayNoDuplicates[i];
-    historyButtons.append(searchHistoryBtn);
-    searchHistoryBtn.addEventListener("click", searchHistoryClick);
-  }
-
   var cityCoordinates =
     "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cityName +
@@ -87,14 +66,14 @@ function getWeatherApi(cityName) {
     });
 }
 
-//displayForecast function to loop through data we get from open weather and i===0 it will dynamically create a forecast card for the current day and if i>(8*3)-1 (8*3 becuase the data from open weather comes in 3 hour blocks so 8*3 is 24hrs)then it will dynamically generate cards for the next five days
+//displayForecast function to loop through data we get from open weather and i===0 it will dynamically create a forecast card for the current day and if i>(8*3)-1 (8*3 becuase the data from open weather comes in 3 hour blocks so 8*3 is 24hrs)then it will dynamically generate cards for the next five days and function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
 var displayforecast = function (data) {
   singleCard.innerHTML = "";
   fiveCardDeck.innerHTML = "";
   for (i = 0; i < 6; i++) {
     if (i === 0) {
       var singleDayDate = document.createElement("h5");
-      var singleCityName = document.createElement("h3");
+      var singleCityName = document.createElement("h1");
       var singleCityIcon = document.createElement("img");
       var singleCityTemp = document.createElement("h3");
       var singleCityWind = document.createElement("h3");
@@ -163,12 +142,26 @@ var displayforecast = function (data) {
   }
 };
 
-// function deleteChildhistory
-//function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
+//function to make buttons for cities you previously searched for
+function makeCityHistoryBtns() {
+  if (historyButtons.innerHTML) {
+    historyButtons.innerHTML = "";
+  }
+  for (var i = 0; i < historyArrayNoDuplicates.length; i++) {
+    window.searchHistoryBtn = document.createElement("button");
+    window.searchHistoryBtn.setAttribute("type", "button");
+    window.searchHistoryBtn.setAttribute("aria-controls", "today forecast");
+    window.searchHistoryBtn.classList.add("history-btn", "btn-history");
+    window.searchHistoryBtn.setAttribute(
+      "data-search",
+      historyArrayNoDuplicates[i]
+    );
+    searchHistoryBtn.textContent = historyArrayNoDuplicates[i];
+    historyButtons.append(searchHistoryBtn);
+    searchHistoryBtn.addEventListener("click", searchHistoryClick);
+  }
+}
 
-// var historyArray = JSON.parse(localStorage.getItem("searched city")) || [];
-
-function makeCityHistoryBtns() {}
 //event listener for clicking the search buttion. this is where the displayforecast and getweather api functions are called
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
@@ -178,6 +171,7 @@ searchButton.addEventListener("click", function (event) {
   makeCityHistoryBtns();
 });
 
+//function to link the history button to the event that triggered it(ie the inputted city value)
 function searchHistoryClick(e) {
   if (!e.target.matches(".btn-history")) {
     return;
@@ -188,13 +182,13 @@ function searchHistoryClick(e) {
   getWeatherApi(search);
   console.log("button pressed");
 }
-// var historyArrayNoDuplicates = [...new Set(historyArray)];
-// searchHistoryBtn.addEventListener("click", "data-search", function (event) {
-//   event.preventDefault();
-//   searchHistoryBtn.textContent = historyArray[i];
-//   console.log("button pressed");
-//   getWeatherApi(historyArray[i]);
-//   displayforecast();
-// });
 
-// historyButtons.addEventListener("click", searchHistoryClick);
+//event listenr and function to clear city buttons
+clearButton.addEventListener("click", function () {
+  window.localStorage.removeItem("searched city");
+
+  var clearAllButtons = document.querySelectorAll(".history-btn");
+  for (var i = 0; i < clearAllButtons.length; i++) {
+    clearAllButtons[i].style.display = "none";
+  }
+});
