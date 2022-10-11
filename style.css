@@ -9,6 +9,16 @@ body {
 .card-deck {
   margin-left: 2%;
 }
-.btn-group-vertical {
-  align-items: flex-end;
+
+.navbar-brand {
+  font-size: 40px;
+}
+.btn-group-vertical,
+.clearButtons {
+  position: absolute;
+  right: 320px;
+}
+
+main {
+  background-color: rgb(219, 235, 243);
 }

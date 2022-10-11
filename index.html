@@ -14,30 +14,34 @@
     <title>WeatherSeer</title>
   </head>
   <body class>
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand">WeatherSeer</a>
-      <button type="button" class="clearButtons btn btn-outline-success">
-        clear buttons
-      </button>
-      <form class="form-inline">
-        <input
-          id="search-input"
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search For Your City"
-          aria-label="Search"
-        />
-        <button
-          id="search-button"
-          class="btn btn-outline-success my-2 my-sm-0"
-          type="submit"
-        >
-          Search
+    
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand">WeatherSeer</a>
+        <div>
+        <button type="button" class="clearButtons btn btn-outline-success">
+          clear buttons
         </button>
-      </form>
-    </nav>
+        <form class="form-inline">
+          <input
+            id="search-input"
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search For Your City"
+            aria-label="Search"
+          />
+          <button
+            id="search-button"
+            class="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+      </nav>
+    </div>
     <main>
-      <div class="btn-group-vertical w-100">
+      <div class="btn-group-vertical w-30">
         <!--history of cities searched dynamically generated here-->
       </div>
       <div class="card" style="width: 75%; height: 10%">

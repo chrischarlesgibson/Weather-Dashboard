@@ -173,6 +173,11 @@ function makeCityHistoryBtns() {
       "data-search",
       historyArrayNoDuplicates[i]
     );
+    window.searchHistoryBtn.setAttribute(
+      "style",
+      "height:38px; width:201px; margin-left: 79.5%;"
+    );
+
     searchHistoryBtn.textContent = historyArrayNoDuplicates[i];
     historyButtons.append(searchHistoryBtn);
     searchHistoryBtn.addEventListener("click", searchHistoryClick);
