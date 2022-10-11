@@ -58,21 +58,12 @@ function getWeatherApi(cityName) {
           return response.json();
         })
         .then(function (data) {
-          // if (window.cityName !== data[0].city.name.replaceAll("", "")) {
-          //   return;
-          // }
-          // console.log(data);
-
-          // if (cityName == data[0].city.name.replaceAll("", ""))
-          // displayforecast(data);
-          // }) else {
-          //   alert("not a city")
           displayforecast(data);
         });
     });
 }
 
-//displayForecast function to loop through data we get from open weather and i===0 it will dynamically create a forecast card for the current day and if i>(8*3)-1 (8*3 becuase the data from open weather comes in 3 hour blocks so 8*3 is 24hrs)then it will dynamically generate cards for the next five days and function to storage searched for cities into local storage and put them on the page as buttons so they can be clicked again.
+//displayForecast function to loop through data we get from open weather and i===0 it will dynamically create a forecast card for the current day and if i>(8*3)-1 (8*3 becuase the data from open weather comes in 3 hour blocks so 8*3 is 24hrs)then it will dynamically generate cards for the next five days
 var displayforecast = function (data) {
   singleCard.innerHTML = "";
   fiveCardDeck.innerHTML = "";
@@ -154,9 +145,6 @@ var displayforecast = function (data) {
       row.append(newFiveDayCard);
     }
   }
-  // var fiveDayForecastTitle = document.createElement("h1");
-  // fiveDayForecastTitle.textContent = "Five Day Forecast:";
-  // singleCard.append(fiveDayForecastTitle);
 };
 
 //function to make buttons for cities you previously searched for

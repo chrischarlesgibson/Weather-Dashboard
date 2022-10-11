@@ -1,10 +1,10 @@
-# WeatherSeer
+# WeatherCast
 
 ## Description
 
 ---
 
-WeatherSeer is an application that presents a current day forecast as well as a five day future forecast for each city the user searchs for. It allows users to seaech for multiple cities easily and displays the most pretinent weather data so that the user can plan vacationas/daily activities accordingly.([Link to project found here](https://chrischarlesgibson.github.io/work-day-scheduler/)).
+WeatherCast is an application that presents a current day forecast as well as a five day future forecast for each city the user searchs for. It allows users to search for multiple cities easily and displays the most pretinent weather data so that the user can plan vacations/daily activities accordingly.([Link to project found here](https://chrischarlesgibson.github.io/Weather-Dashboard/)).
 
 ## Usage
 
